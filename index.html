@@ -11,13 +11,48 @@
     
 </head>
 <body>
-    
+    <head>
+        <h1>
+            Control de Gastos
+        </h1>
+    </head>
+    <main>
+        
+        <section id="ingreso_gasto">
+            <div>
+                <label for="fecha_ingreso"> fecha </label>
+                <input id="fecha_ingreso" type="date"  placeholder="fecha">
+            </div>
+
+            <div>
+                <label for="titulo_gasto">titulo gasto</label>
+                <input id="titulo_gasto" type="text" name="" >
+            </div>
+            <div>
+                <label for="monto_gastado">monto gastado</label>
+                <input id="monto_gastado" type="number">
+            </div>
+
+
+            <div>
+                <button id="btn_crear" type="button" >creardor</button>
+                <button id="limpiar_campos" type="button">limpiar campos</button>
+            </div>
+            
+
+        </section>
+        <section id="visualizacion_gastos">
+
+        </section>
+    </main>
+
+    <footer>
+        <h3></h3>
+    </footer>    
+    <script src="./js/js.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script>dayjs().format()</script>
 </body>
-<label for="date"></label>
-<input type="date" id="date" placeholder="fecha">
 
-<script src="./js/js.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-<script>dayjs().format()</script>
 </html>
