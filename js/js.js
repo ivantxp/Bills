@@ -11,6 +11,7 @@ let montoGastado = document.getElementById("monto_gastado");
 
 
 
+
 if( localStorage.getItem("gastosUsuario") != null){
     gastos = JSON.parse(localStorage.getItem("gastosUsuario"));
     console.log(gastos);
