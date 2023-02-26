@@ -19,3 +19,9 @@ function crearEveto(){
     alert(dayjs(gastos[gastos.length-1].fecha).format('DD-MMMM-YYYY'))
     localStorage.setItem("gastosUsuario",JSON.stringify(gastos));
 }
+
+gastos.sort((x, y) => y.fecha - x.fecha);
+console.log(gastos)
+
+gastos.sort((x, y) => x.precio - y.precio);
+console.log(gastos)
