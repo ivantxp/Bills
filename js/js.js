@@ -6,7 +6,7 @@ let tituloGasto= document.getElementById("titulo_gasto");
 let ingresoFecha = document.getElementById("fecha_ingreso");
 let detalleGasto = document.getElementById("detalle_gasto")
 let credorGasto = document.getElementById("boton_crear");
-credorGasto.onclick = crearEveto;
+credorGasto.onclick = controlIngresos;
 let montoGastado = document.getElementById("monto_gastado");
 
 if( localStorage.getItem("gastosUsuario") != null){//control incial para cargar datos de gastos
@@ -14,23 +14,31 @@ if( localStorage.getItem("gastosUsuario") != null){//control incial para cargar 
     console.log(gastos);
 }
 
-function controlIngresos(){
-    if(tituloGasto.value == "" ){
-        alert("Debe ingresar titulo del gasto")
-        return false
-    }else if(tituloGasto.length > 30){
-        alert("El titulo del gasto no puede tener mas de 30 caracteres")
-        return false
-    }else if(montoGastado < 0){
-        alert("el monto gastado no puede ser negativo")
-        return false
-    }else if(isNaN(montoGastado)){
-        alert("Tiene que ingresar numeros en mono gastado")
+document.addEventListener("keyup", function(event) {
+    if (event.code === 'Enter') {
+        controlIngresos()
     }
-    
+});
+function controlIngresos(){
+
+    if(ingresoFecha.value =="" || tituloGasto.value == "" ||  montoGastado.value =="" || detalleGasto.value == "" ){
+        alert("Debe ingresar nformacion pedida en todos los campos")
+    }else if(tituloGasto.value.length > 30){
+        alert("El titulo del gasto no puede tener mas de 30 caracteres")
+    }else if(montoGastado.value < 0){
+        alert("el monto gastado no puede ser negativo")
+    }else if(isNaN(montoGastado.value)){
+        alert("Tiene que ingresar numeros en monto gastado")
+    }else if( detalleGasto.value.length > 100){
+        alert("Los detalles de no puede superer los 100 caracteres")
+    }
+    else{
+        crearEveto()
+    }
 }
 
 function renderizadoGastos(baseDatos){
+    
     visualizacionGastos.innerHTML = "";
     baseDatos.forEach(el => {
         let contenedorEvento = document.createElement("article");
