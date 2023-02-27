@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Document</title>
-
+    <link rel="stylesheet" href="./css/estilo.css">
     <script src="./js/dayjs.min.js"     ></script>
 
     
@@ -20,27 +21,24 @@
         <form action=""></form>
         <section id="ingreso_gasto">
             <div>
-                <label for="fecha_ingreso"> fecha </label>
+
                 <input id="fecha_ingreso" type="date"  placeholder="fecha">
             </div>
 
             <div>
-                <label for="titulo_gasto">titulo gasto</label>
-                <input id="titulo_gasto" type="text" name="" >
+                <input id="titulo_gasto" type="text" name=""placeholder = "Titulo del gasto" >
             </div>
             <div>
-                <label for="monto_gastado">monto gastado</label>
-                <input id="monto_gastado" type="number">
+                <input id="monto_gastado" type="text" placeholder="monto gastado">
             </div>
 
             <div>
-
+                <input name="detalle" id="detalle_gasto" cols="30" rows="10" placeholder="detalles de gasto">
             </div>
             <div>
-                <button id="btn_crear" type="button" >creardor</button>
+                <button id="boton_crear" type="button" >creardor</button>
                 <button id="limpiar_campos" type="button">limpiar campos</button>
             </div>
-            
 
         </section>
         <section id="visualizacion_gastos">
