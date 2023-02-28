@@ -19,8 +19,18 @@ document.addEventListener("keyup", function(event) {
         controlIngresos()
     }
 });
-function controlIngresos(){
 
+function caracterEspecial(inspeccionar){
+    for(i=0; i<= inspeccionar.value.length;i++){
+        let resultado = false
+        if(inspeccionar.value[i] == ">" || inspeccionar.value[i] == "<") {
+            resultado = true
+            break
+        }
+    }
+} 
+
+function controlIngresos(){
     if(ingresoFecha.value =="" || tituloGasto.value == "" ||  montoGastado.value =="" || detalleGasto.value == "" ){
         alert("Debe ingresar nformacion pedida en todos los campos")
     }else if(tituloGasto.value.length > 30){
@@ -31,14 +41,15 @@ function controlIngresos(){
         alert("Tiene que ingresar numeros en monto gastado")
     }else if( detalleGasto.value.length > 100){
         alert("Los detalles de no puede superer los 100 caracteres")
+    }else if(caracterEspecial(detalleGasto)){
+        alert("No puede ingresar <,>")
     }
     else{
         crearEveto()
     }
 }
 
-function renderizadoGastos(baseDatos){
-    
+function renderizadoGastos(baseDatos){    
     visualizacionGastos.innerHTML = "";
     baseDatos.forEach(el => {
         let contenedorEvento = document.createElement("article");
@@ -56,14 +67,35 @@ function renderizadoGastos(baseDatos){
     botonEliminar.forEach((el)=>el.onclick = eventoEliminar)
 }
 
-function eventoEditar(e){
-    alert(e.target.id)
+function extractorId(extraccion){
+    let numeroExtraido = "";
+    for(i=0;i<extraccion.length;i++){
+        if(isNaN( extraccion[i]) == false){
+            numeroExtraido += extraccion[i]
+        }
+    }
+    return Number(numeroExtraido)
 }
-renderizadoGastos(gastos)
+
+function eventoEditar(e){
+    
+    alert(e.target.id)
+    console.log(extractorId(e.target.id))
+}
+
 
 function eventoEliminar(e){
-    alert(e.target.id)
-}
+    let idExtraido = extractorId(e.target.id)
+    let eventoAEliminar = gastos.indexOf(gastos.find((el)=>(el.id == idExtraido)))
+   
+
+    gastos.splice(eventoAEliminar,1)  
+    renderizadoGastos(gastos)
+    localStorage.setItem("gastosUsuario",JSON.stringify(gastos));
+
+    }
+
+
 function crearEveto(){
     gastos.push({
         id: gastos.length + 1, 
@@ -75,13 +107,14 @@ function crearEveto(){
     //console.log(gastos);
     localStorage.setItem("gastosUsuario",JSON.stringify(gastos));
     gastos.sort((a, b) => new Date(a.fecha)  - new Date(b.fecha));
-    renderizadoGastos(gastos)
+    renderizadoGastos(gastos);
     tituloGasto.value = "";
     montoGastado.value = "";
     ingresoFecha.value = "";
     detalleGasto.value = "";
 }
 
+renderizadoGastos(gastos)
 
 gastos.sort((a, b) => new Date(a.fecha)  - new Date(b.fecha));
 
