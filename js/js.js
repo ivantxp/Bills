@@ -11,7 +11,6 @@ let montoGastado = document.getElementById("monto_gastado");
 
 if( localStorage.getItem("gastosUsuario") != null){//control incial para cargar datos de gastos
     gastos = JSON.parse(localStorage.getItem("gastosUsuario"));
-    console.log(gastos);
 }
 
 document.addEventListener("keyup", function(event) {
@@ -49,12 +48,13 @@ function controlIngresos(){
     }
 }
 
-function renderizadoGastos(baseDatos){    
+function renderizadoGastos(baseDatos){   
     visualizacionGastos.innerHTML = "";
     baseDatos.forEach(el => {
         let contenedorEvento = document.createElement("article");
         contenedorEvento.innerHTML = `
-                <p>id:${el.id} ${el.titulo} ${dayjs(el.fecha).format('DD-MMMM-YYYY')} detalle: ${el.detalle} </p>
+                <p>id:${el.id} ${el.titulo} </p>
+                <p>${dayjs(el.fecha).format('DD-MMMM-YYYY')} detalle: ${el.detalle} </p>
                 <p>Gastado: ${el.gasto}$</p>
                 <button id=editar${el.id} class="editar" type=button >editar</button>
                 <button id=eliminar${el.id} class="eliminar" type=button >Eliminar</button>
@@ -77,23 +77,55 @@ function extractorId(extraccion){
     return Number(numeroExtraido)
 }
 
-function eventoEditar(e){
-    
-    alert(e.target.id)
-    console.log(extractorId(e.target.id))
+async function eventoEditar(e){
+    let idExtraido = extractorId(e.target.id)
+    let eventoAEditar = gastos.indexOf(gastos.find((el)=>(el.id == idExtraido)))
+    console.log(eventoAEditar)
+
+    const { value: formValues } = await Swal.fire({
+        title: 'Editar gasto',
+        html:   `
+            <div>
+                <input id="fecha_ingreso" type="date"  placeholder= ${dayjs(gastos[eventoAEditar].fecha).format('DD-MMMM-YYYY')}>
+            </div>
+            <div>
+                <input id="titulo_gasto" type="text" name=""placeholder = ${gastos[eventoAEditar].titulo} >
+            </div>
+            <div>
+            <input id="titulo_gasto" type="text" name=""placeholder = ${gastos[eventoAEditar].gasto} >
+            </div>
+            <div>
+                <input id="detalle_gasto" name="detalle" type="text"  placeholder=${gastos[eventoAEditar].detalle}>
+            </div>
+        `,
+
+        focusConfirm: false,
+        preConfirm: () => {
+            return [
+               /*  document.getElementById('swal-input1').value,
+                document.getElementById('swal-input2').value */
+            ]
+        }
+    })
+
+   if (formValues) {
+        Swal.fire(JSON.stringify(formValues))
+    }
+
+
 }
 
 
 function eventoEliminar(e){
     let idExtraido = extractorId(e.target.id)
     let eventoAEliminar = gastos.indexOf(gastos.find((el)=>(el.id == idExtraido)))
-   
-
     gastos.splice(eventoAEliminar,1)  
+    for(i=0;i<gastos.length;i++){
+        gastos[i].id = i + 1
+    }
     renderizadoGastos(gastos)
     localStorage.setItem("gastosUsuario",JSON.stringify(gastos));
-
-    }
+}
 
 
 function crearEveto(){
