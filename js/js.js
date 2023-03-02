@@ -86,30 +86,41 @@ async function eventoEditar(e){
         title: 'Editar gasto',
         html:   `
             <div>
-                <input id="fecha_ingreso" type="date"  placeholder= ${dayjs(gastos[eventoAEditar].fecha).format('DD-MMMM-YYYY')}>
+                <input id="fecha_edicion" type="date"  value= ${gastos[eventoAEditar].fecha}>
             </div>
             <div>
-                <input id="titulo_gasto" type="text" name=""placeholder = ${gastos[eventoAEditar].titulo} >
+                <input id="titulo_edicion" type="text" name=""placeholder = ${gastos[eventoAEditar].titulo} >
             </div>
             <div>
-            <input id="titulo_gasto" type="text" name=""placeholder = ${gastos[eventoAEditar].gasto} >
+            <input id="titulo_edicion" type="text" name=""placeholder = ${gastos[eventoAEditar].gasto} >
             </div>
             <div>
-                <input id="detalle_gasto" name="detalle" type="text"  placeholder=${gastos[eventoAEditar].detalle}>
+                <input id="detalle_edicion" name="detalle" type="text"  placeholder=${gastos[eventoAEditar].detalle}>
             </div>
         `,
+        showCancelButton: true,
 
         focusConfirm: false,
         preConfirm: () => {
             return [
-               /*  document.getElementById('swal-input1').value,
-                document.getElementById('swal-input2').value */
+
+                document.getElementById("detalle_edicion").value ,
+                document.getElementById("titulo_edicion").value ,
             ]
-        }
+        }       
+     
     })
 
    if (formValues) {
+        alert("true")
+        console.log(document.getElementById("fecha_edicion").value,)
+        console.log(document.getElementById("titulo_edicion").value,)
+        console.log(document.getElementById("titulo_edicion").value,)
+        console.log(document.getElementById("detalle_edicion").value,)
+
         Swal.fire(JSON.stringify(formValues))
+    }else{
+        alert("false")
     }
 
 
