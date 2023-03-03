@@ -9,10 +9,37 @@ let credorGasto = document.getElementById("boton_crear");
 credorGasto.onclick = controlIngresos;
 let montoGastado = document.getElementById("monto_gastado");
 
+/* let fechaMinima = document.getElementById("fecha_minima")
+fechaMinima.onclick = FiltradoFechaMinima
+let fechaMaxima = document.getElementById("fecha_maxima")
+//fechaMaxima.onoclick= FiltradosFechaMaxima */
+let BotonbuscarFechas = document.getElementById("buscar_fechas")
+//BotonbuscarFechas.onclick = buscarFechas
+let NuevaAntiguaCheck = document.getElementById("check_fecha_antigua")
+NuevaAntiguaCheck.onclick =  NuevaAntiguaOrden
+//checkFechaAntigua.onclick = CheckFechasAntiguas
+let AntiguaNuevaCheck = document.getElementById("check_fecha_reciente")
+AntiguaNuevaCheck.onclick = AntiguaNuevaOrdem
+let checkAltoBajo = document.getElementById("check_bajo_alto")
 
+let checkBajoAlto = document.getElementById("check_alto_bajo")
 
 if( localStorage.getItem("gastosUsuario") != null){//control incial para cargar datos de gastos
     gastos = JSON.parse(localStorage.getItem("gastosUsuario"));
+}
+
+function NuevaAntiguaOrden(){
+    if(NuevaAntiguaCheck.checked){
+        AntiguaNuevaCheck.checked = false
+    }else{
+    }
+}
+
+function AntiguaNuevaOrdem(){
+    if(AntiguaNuevaCheck.checked){
+        NuevaAntiguaCheck.checked =false
+    }else{
+    }
 }
 
 document.addEventListener("keyup", function(event) {
@@ -154,7 +181,7 @@ function crearEveto(){
     });
     //console.log(gastos);
     localStorage.setItem("gastosUsuario",JSON.stringify(gastos));
-    gastos.sort((a, b) => new Date(a.fecha)  - new Date(b.fecha));
+    //gastos.sort((a, b) => new Date(a.fecha)  - new Date(b.fecha));
     renderizadoGastos(gastos);
     tituloGasto.value = "";
     montoGastado.value = "";
@@ -164,5 +191,5 @@ function crearEveto(){
 
 renderizadoGastos(gastos)
 
-gastos.sort((a, b) => new Date(a.fecha)  - new Date(b.fecha));
+//gastos.sort((a, b) => new Date(a.fecha)  - new Date(b.fecha));
 
