@@ -92,7 +92,7 @@ async function eventoEditar(e){
                 <input id="titulo_edicion" type="text" name=""placeholder = ${gastos[eventoAEditar].titulo} >
             </div>
             <div>
-            <input id="titulo_edicion" type="text" name=""placeholder = ${gastos[eventoAEditar].gasto} >
+            <input id="gasto_edicion" type="text" name=""placeholder = ${gastos[eventoAEditar].gasto} >
             </div>
             <div>
                 <input id="detalle_edicion" name="detalle" type="text"  placeholder=${gastos[eventoAEditar].detalle}>
@@ -102,23 +102,26 @@ async function eventoEditar(e){
 
         focusConfirm: false,
         preConfirm: () => {
-            return [
-
-                document.getElementById("detalle_edicion").value ,
-                document.getElementById("titulo_edicion").value ,
-            ]
+            return "edicion relizada"
         }       
-     
     })
 
    if (formValues) {
-        alert("true")
-        console.log(document.getElementById("fecha_edicion").value,)
-        console.log(document.getElementById("titulo_edicion").value,)
-        console.log(document.getElementById("titulo_edicion").value,)
-        console.log(document.getElementById("detalle_edicion").value,)
+        if(document.getElementById("fecha_edicion").value != ""){
+            gastos[eventoAEditar].fecha = document.getElementById("fecha_edicion").value
+        }
+        if(document.getElementById("titulo_edicion").value !=""){
+            gastos[eventoAEditar].titulo = document.getElementById("titulo_edicion").value
+        }
+        if(document.getElementById("gasto_edicion").value !=""){
+            gastos[eventoAEditar].gasto = document.getElementById("gasto_edicion").value
+        }
+        if(document.getElementById("detalle_edicion").value !=""){
+            gastos[eventoAEditar].detalle = document.getElementById("detalle_edicion").value
+        }
+        localStorage.setItem("gastosUsuario",JSON.stringify(gastos));
+        renderizadoGastos(gastos)
 
-        Swal.fire(JSON.stringify(formValues))
     }else{
         alert("false")
     }
