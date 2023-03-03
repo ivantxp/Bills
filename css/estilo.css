@@ -8,6 +8,10 @@ p {
   padding: 0;
 }
 
+section {
+  border: solid black 2px;
+}
+
 article {
   border: solid black 1px;
 }
