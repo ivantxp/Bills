@@ -9,6 +9,8 @@ let credorGasto = document.getElementById("boton_crear");
 credorGasto.onclick = controlIngresos;
 let montoGastado = document.getElementById("monto_gastado");
 
+
+
 if( localStorage.getItem("gastosUsuario") != null){//control incial para cargar datos de gastos
     gastos = JSON.parse(localStorage.getItem("gastosUsuario"));
 }
