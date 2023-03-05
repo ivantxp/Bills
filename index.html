@@ -20,11 +20,9 @@
     <main>
         <form action=""></form>
         <section id="ingreso_gasto">
-            <div>
-
+            <div>                
                 <input id="fecha_ingreso" type="date" placeholder="fecha">
             </div>
-
             <div>
                 <input id="titulo_gasto" type="text" name=""placeholder = "Titulo del gasto" >
             </div>
@@ -42,16 +40,12 @@
 
         </section>
         <section id="filtros">
-            <div>
-                <input type="text" id="filtro_busqueda" placeholder="buscar">
-                <button type="button">buscar</button>
-            </div>
+        
             <div>
                 <label for="fecha_minima">fecha desde</label>
                 <input  id = "fecha_minima" type="date" placeholder="fecha minima">
                 <label for="fecha_maxima">fecha hasta</label>
                 <input type="date" id="fecha_maxima" placeholder="fecha maxima">
-                <button id="buscar_fechas" type="button">buscar por fechas</button>
             </div>
             <div>
                 <input type="checkbox" id="check_bajo_alto">
@@ -60,11 +54,22 @@
                 <label for="check_alto_bajo">gasto bajo a alto</label>
             </div>
             <div>
-                <input type="checkbox" id="check_fecha_antigua">
-                <label for="check_fecha_antigua">fecha reciente/antigua</label>
-                <input type="checkbox" name="" id="check_fecha_reciente">
-                <label for="check_fecha_reciente">fecha antigua/receinte</label>
+                <input type="checkbox" id="check_reciente_antiguo">
+                <label for="check_reciente_antiguo">fecha reciente/antigua</label>
+                <input type="checkbox" name="" id="check_antiguo_reciente">
+                <label for="check_antiguo_reciente">fecha antigua/receinte</label>
             </div>
+            <div>
+                <label for="importe_minimo">Importe minimo</label>
+                <input type="number" id="importe_minimo">
+                <label for="importe_maximo">importe maximo</label>
+                <input type="number" id="importe_maximo">
+            </div>
+            <div>
+                <input type="text" id="filtro_busqueda" placeholder="palabra a buscar">
+            </div>
+            <button id="boton_buscar" type="button">buscar</button>
+            <button id="limpiar_campos_busqueda" type="button">limpiar campos</button>
         </section>
         <section id="visualizacion_gastos">
 

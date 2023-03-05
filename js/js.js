@@ -4,41 +4,78 @@ let visualizacionGastos = document.getElementById("visualizacion_gastos");
 
 let tituloGasto= document.getElementById("titulo_gasto");
 let ingresoFecha = document.getElementById("fecha_ingreso");
-let detalleGasto = document.getElementById("detalle_gasto")
+let detalleGasto = document.getElementById("detalle_gasto");
 let credorGasto = document.getElementById("boton_crear");
 credorGasto.onclick = controlIngresos;
 let montoGastado = document.getElementById("monto_gastado");
+let buscar = document.getElementById("boton_buscar")
+buscar.onclick = buscarFiltrados
 
-/* let fechaMinima = document.getElementById("fecha_minima")
-fechaMinima.onclick = FiltradoFechaMinima
-let fechaMaxima = document.getElementById("fecha_maxima")
-//fechaMaxima.onoclick= FiltradosFechaMaxima */
-let BotonbuscarFechas = document.getElementById("buscar_fechas")
-//BotonbuscarFechas.onclick = buscarFechas
-let NuevaAntiguaCheck = document.getElementById("check_fecha_antigua")
-NuevaAntiguaCheck.onclick =  NuevaAntiguaOrden
-//checkFechaAntigua.onclick = CheckFechasAntiguas
-let AntiguaNuevaCheck = document.getElementById("check_fecha_reciente")
-AntiguaNuevaCheck.onclick = AntiguaNuevaOrdem
-let checkAltoBajo = document.getElementById("check_bajo_alto")
-
-let checkBajoAlto = document.getElementById("check_alto_bajo")
+//captura de chack
+let checkBajoAlto = document.getElementById("check_bajo_alto");
+let checkAltoBajo = document.getElementById("check_alto_bajo");
+let CheckRecienteAntiguo = document.getElementById("check_reciente_antiguo");
+let CheckAntguoReciente = document.getElementById("check_antiguo_reciente");
+checkBajoAlto.onclick = OrdenarBajoAlto;
+checkAltoBajo.onclick = OrdenarAltoBajo;
+CheckRecienteAntiguo.onclick = OrdenarRecienteAntiguo;
+CheckAntguoReciente.onclick = OrdenarAntguoReciente;
 
 if( localStorage.getItem("gastosUsuario") != null){//control incial para cargar datos de gastos
     gastos = JSON.parse(localStorage.getItem("gastosUsuario"));
 }
 
-function NuevaAntiguaOrden(){
-    if(NuevaAntiguaCheck.checked){
-        AntiguaNuevaCheck.checked = false
+function OrdenarBajoAlto(){
+    
+    if(checkBajoAlto.checked){
+        checkAltoBajo.checked = false;
+        CheckRecienteAntiguo.checked = false;
+        CheckAntguoReciente.checked = false;
+        gastos.sort((a, b) => b.gasto  - a.gasto);
+        renderizadoGastos(gastos)
     }else{
+        gastos.sort((a, b) => a.id - b.id);
+        renderizadoGastos(gastos)
     }
 }
 
-function AntiguaNuevaOrdem(){
-    if(AntiguaNuevaCheck.checked){
-        NuevaAntiguaCheck.checked =false
+function OrdenarAltoBajo(){
+    if(checkAltoBajo.checked){
+        checkBajoAlto.checked =  false;
+        CheckRecienteAntiguo.checked = false;
+        CheckAntguoReciente.checked = false;
+        gastos.sort((a, b) => a.gasto  - b.gasto);
+        renderizadoGastos(gastos)
     }else{
+        gastos.sort((a, b) => a.i - b.id);
+        renderizadoGastos(gastos)
+    }
+}
+
+function OrdenarRecienteAntiguo(){
+    if(CheckRecienteAntiguo.checked){
+        checkBajoAlto.checked =  false;
+        checkAltoBajo.checked = false;
+        CheckAntguoReciente.checked = false;
+        gastos.sort((a, b) => new Date(b.fecha)  - new Date(a.fecha));
+        renderizadoGastos(gastos)
+
+    }else{
+        gastos.sort((a, b) =>a.id  -b.id);
+        renderizadoGastos(gastos)
+    }
+}
+
+function OrdenarAntguoReciente(){
+    if(CheckAntguoReciente.checked){
+        checkBajoAlto.checked =  false;
+        checkAltoBajo.checked = false;
+        CheckRecienteAntiguo.checked = false;
+        gastos.sort((a, b) => new Date(a.fecha)  - new Date(b.fecha));
+        renderizadoGastos(gastos)
+    }else{
+        gastos.sort((a, b) => a.id  -b.id);
+        renderizadoGastos(gastos)
     }
 }
 
@@ -55,12 +92,31 @@ function caracterEspecial(inspeccionar){
             resultado = true
             break
         }
+        return resultado
     }
 } 
 
+function minimoMaximo(){
+    
+}
+function  buscarFiltrados(){
+    let filtrados = [];
+    
+
+    let fechaMinima = document.getElementById("fecha_minima");
+    let fechaMaxima = document.getElementById("fecha_maxima");
+    let importeMinimo = document.getElementById("importe_minimo");
+    let importeMmaximo = document.getElementById("importe_maximo");
+    let buscarorPalabras = document.getElementById("filtro_busqueda");
+    console.log( importeMinimo.value + "," + importeMmaximo.value)
+    filtrados = gastos.filter(()=>el.gasto <= Number(importeMinimo.value) && el.gasto >= Number(importeMmaximo.value)) 
+    renderizadoGastos(filtrados)
+
+}
+
 function controlIngresos(){
     if(ingresoFecha.value =="" || tituloGasto.value == "" ||  montoGastado.value =="" || detalleGasto.value == "" ){
-        alert("Debe ingresar nformacion pedida en todos los campos")
+        alert("Debe ingresar informacion pedida en todos los campos")
     }else if(tituloGasto.value.length > 30){
         alert("El titulo del gasto no puede tener mas de 30 caracteres")
     }else if(montoGastado.value < 0){
@@ -135,7 +191,7 @@ async function eventoEditar(e){
         }       
     })
 
-   if (formValues) {
+    if (formValues) {
         if(document.getElementById("fecha_edicion").value != ""){
             gastos[eventoAEditar].fecha = document.getElementById("fecha_edicion").value
         }
@@ -150,12 +206,9 @@ async function eventoEditar(e){
         }
         localStorage.setItem("gastosUsuario",JSON.stringify(gastos));
         renderizadoGastos(gastos)
-
     }else{
         alert("false")
     }
-
-
 }
 
 
@@ -191,5 +244,5 @@ function crearEveto(){
 
 renderizadoGastos(gastos)
 
-//gastos.sort((a, b) => new Date(a.fecha)  - new Date(b.fecha));
+
 
