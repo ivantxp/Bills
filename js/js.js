@@ -1,3 +1,4 @@
+//librerias https://programacion.net/articulo/9_librerias_de_javascript_para_crear_graficos_interactivos_1365
 dayjs.locale("es");
 let gastos = [] ;
 let visualizacionGastos = document.getElementById("visualizacion_gastos");
@@ -24,61 +25,6 @@ CheckAntguoReciente.onclick = OrdenarAntguoReciente;
 if( localStorage.getItem("gastosUsuario") != null){//control incial para cargar datos de gastos
     gastos = JSON.parse(localStorage.getItem("gastosUsuario"));
 }
-
-function OrdenarBajoAlto(){
-    
-    if(checkBajoAlto.checked){
-        checkAltoBajo.checked = false;
-        CheckRecienteAntiguo.checked = false;
-        CheckAntguoReciente.checked = false;
-        gastos.sort((a, b) => b.gasto  - a.gasto);
-        renderizadoGastos(gastos)
-    }else{
-        gastos.sort((a, b) => a.id - b.id);
-        renderizadoGastos(gastos)
-    }
-}
-
-function OrdenarAltoBajo(){
-    if(checkAltoBajo.checked){
-        checkBajoAlto.checked =  false;
-        CheckRecienteAntiguo.checked = false;
-        CheckAntguoReciente.checked = false;
-        gastos.sort((a, b) => a.gasto  - b.gasto);
-        renderizadoGastos(gastos)
-    }else{
-        gastos.sort((a, b) => a.i - b.id);
-        renderizadoGastos(gastos)
-    }
-}
-
-function OrdenarRecienteAntiguo(){
-    if(CheckRecienteAntiguo.checked){
-        checkBajoAlto.checked =  false;
-        checkAltoBajo.checked = false;
-        CheckAntguoReciente.checked = false;
-        gastos.sort((a, b) => new Date(b.fecha)  - new Date(a.fecha));
-        renderizadoGastos(gastos)
-
-    }else{
-        gastos.sort((a, b) =>a.id  -b.id);
-        renderizadoGastos(gastos)
-    }
-}
-
-function OrdenarAntguoReciente(){
-    if(CheckAntguoReciente.checked){
-        checkBajoAlto.checked =  false;
-        checkAltoBajo.checked = false;
-        CheckRecienteAntiguo.checked = false;
-        gastos.sort((a, b) => new Date(a.fecha)  - new Date(b.fecha));
-        renderizadoGastos(gastos)
-    }else{
-        gastos.sort((a, b) => a.id  -b.id);
-        renderizadoGastos(gastos)
-    }
-}
-
 document.addEventListener("keyup", function(event) {
     if (event.code === 'Enter') {
         controlIngresos()
@@ -96,20 +42,102 @@ function caracterEspecial(inspeccionar){
     }
 } 
 
-function minimoMaximo(){
-    
+function OrdenarBajoAlto(){
+    if(checkBajoAlto.checked){
+        checkAltoBajo.checked = false;
+        CheckRecienteAntiguo.checked = false;
+        CheckAntguoReciente.checked = false;
+/*          gastos.sort((a, b) => b.gasto  - a.gasto);
+        renderizadoGastos(gastos) 
+    } else{
+        gastos.sort((a, b) => a.id - b.id);
+        renderizadoGastos(gastos) */
+    }
 }
-function  buscarFiltrados(){
-    let filtrados = [];
-    
 
-    let fechaMinima = document.getElementById("fecha_minima");
-    let fechaMaxima = document.getElementById("fecha_maxima");
+function OrdenarAltoBajo(){
+    if(checkAltoBajo.checked){
+        checkBajoAlto.checked =  false;
+        CheckRecienteAntiguo.checked = false;
+        CheckAntguoReciente.checked = false;
+
+      /*    gastos.sort((a, b) => a.gasto  - b.gasto);
+        renderizadoGastos(gastos) 
+     }else{
+        gastos.sort((a, b) => a.i - b.id);
+        renderizadoGastos(gastos) */
+    } 
+}
+
+function OrdenarRecienteAntiguo(){
+    if(CheckRecienteAntiguo.checked){
+        checkBajoAlto.checked =  false;
+        checkAltoBajo.checked = false;
+        CheckAntguoReciente.checked = false;
+/*         gastos.sort((a, b) => new Date(b.fecha)  - new Date(a.fecha));
+        renderizadoGastos(gastos)
+
+    }else{
+        gastos.sort((a, b) =>a.id  -b.id);
+        renderizadoGastos(gastos)
+    */} 
+}
+
+function OrdenarAntguoReciente(){
+    if(CheckAntguoReciente.checked){
+        checkBajoAlto.checked =  false;
+        checkAltoBajo.checked = false;
+        CheckRecienteAntiguo.checked = false;
+/*         gastos.sort((a, b) => new Date(a.fecha)  - new Date(b.fecha));
+        renderizadoGastos(gastos)
+    }else{
+        gastos.sort((a, b) => a.id  -b.id);
+        renderizadoGastos(gastos) */
+    }
+}
+
+
+function  buscarFiltrados(){
+    let filtrados = gastos;
+    let fechaAntigua = document.getElementById("fecha_antigua");
+    let fechaReceinte = document.getElementById("fecha_reciente");
     let importeMinimo = document.getElementById("importe_minimo");
-    let importeMmaximo = document.getElementById("importe_maximo");
+    let importeMaximo = document.getElementById("importe_maximo");
     let buscarorPalabras = document.getElementById("filtro_busqueda");
-    console.log( importeMinimo.value + "," + importeMmaximo.value)
-    filtrados = gastos.filter(()=>el.gasto <= Number(importeMinimo.value) && el.gasto >= Number(importeMmaximo.value)) 
+    let busqueda = buscarorPalabras.value.toLowerCase();
+
+
+    //if acontinacion verifica si contiene informacion los input para luego aplicarlos filtros al array filtrados 
+    if(importeMinimo.value != ""){
+        filtrados = filtrados.filter((el)=>el.gasto >= Number(importeMinimo.value)) 
+    }
+    if(importeMaximo.value !=""){
+        filtrados = filtrados.filter((el)=>el.gasto <= Number(importeMaximo.value))
+    }
+    if(fechaAntigua.value != ""){
+        filtrados = filtrados.filter((el)=> el.fecha >= fechaAntigua.value)
+    }
+    if(fechaReceinte != ""){
+        filtrados = filtrados.filter((el)=> el.fecha >= fechaAntigua.value)
+    }
+
+    if(buscarorPalabras.value != ""){//busca si incluye la palabra a buscar la base de datos
+        filtrados = filtrados.filter((el)=>el.titulo.toLowerCase().includes(busqueda) || el.detalle.toLowerCase().includes(busqueda) )
+    }
+
+
+    if(checkBajoAlto.checked){
+        filtrados.sort((a, b) => b.gasto - a.gasto)
+    }else if(checkAltoBajo.checked){
+        filtrados.sort((a, b) => a.gasto - b.gasto);
+    }else if(CheckRecienteAntiguo.checked){
+        filtrados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+    }else if(CheckAntguoReciente.checked){
+        filtrados.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+    }else{
+        filtrados.sort((a, b) => a.id - b.id)
+    }
+
     renderizadoGastos(filtrados)
 
 }
