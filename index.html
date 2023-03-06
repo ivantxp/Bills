@@ -18,8 +18,7 @@
         </h1>
     </head>
     <main>
-        <form action=""></form>
-        <section id="ingreso_gasto">
+        <form action="ingreso_gasto">
             <div>                
                 <input id="fecha_ingreso" type="date" placeholder="fecha">
             </div>
@@ -29,7 +28,19 @@
             <div>
                 <input id="monto_gastado" type="text" placeholder="monto gastado">
             </div>
-
+            <select id="tipo_gasto"  >
+                <option value="" selected disabled >Tipo de gasto</option>
+                <option value="fijos">Gastos fijos</option>
+                <option value="extras">Extras</option>
+                <option value="Vestimenta">Vestimenta</option>
+                <option value="cuidado_personal"> Cuidado personal</option>
+                <option value="hogar">Hogar</option>
+                <option value="salud">Salud</option>
+                <option value="alimentacion">Alimentacion</option>
+                <option value="transporte">Transporte</option>
+                <option value="impuestos">Impuestos</option>
+                <option value="educacion">Educacion</option>
+            </select>
             <div>
                 <input id="detalle_gasto" name="detalle" type="text"  placeholder="detalles de gasto" >
             </div>
@@ -37,8 +48,7 @@
                 <button id="boton_crear" type="button" >creardor</button>
                 <button id="limpiar_campos" type="button">limpiar campos</button>
             </div>
-
-        </section>
+        </form>
         <section id="filtros">
         
             <div>

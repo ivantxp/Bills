@@ -3,15 +3,22 @@ dayjs.locale("es");
 let gastos = [] ;
 let visualizacionGastos = document.getElementById("visualizacion_gastos");
 
-let tituloGasto= document.getElementById("titulo_gasto");
+let tituloGasto = document.getElementById("titulo_gasto");
 let ingresoFecha = document.getElementById("fecha_ingreso");
+let tipoGasto = document.getElementById("tipo_gasto");
 let detalleGasto = document.getElementById("detalle_gasto");
 let credorGasto = document.getElementById("boton_crear");
 credorGasto.onclick = controlIngresos;
 let montoGastado = document.getElementById("monto_gastado");
-let buscar = document.getElementById("boton_buscar")
-buscar.onclick = buscarFiltrados
+let buscar = document.getElementById("boton_buscar");
+buscar.onclick = buscarFiltrados;
+let limpiarCampo = document.getElementById("limpiar_campos");
+limpiarCampo.onclick = a
 
+function a(){
+    let b = document.getElementById("tipo_gasto")
+    console.log (tipoGasto.value)
+}
 //captura de chack
 let checkBajoAlto = document.getElementById("check_bajo_alto");
 let checkAltoBajo = document.getElementById("check_alto_bajo");
@@ -120,11 +127,9 @@ function  buscarFiltrados(){
     if(fechaReceinte != ""){
         filtrados = filtrados.filter((el)=> el.fecha >= fechaAntigua.value)
     }
-
     if(buscarorPalabras.value != ""){//busca si incluye la palabra a buscar la base de datos
         filtrados = filtrados.filter((el)=>el.titulo.toLowerCase().includes(busqueda) || el.detalle.toLowerCase().includes(busqueda) )
     }
-
 
     if(checkBajoAlto.checked){
         filtrados.sort((a, b) => b.gasto - a.gasto)
@@ -143,7 +148,7 @@ function  buscarFiltrados(){
 }
 
 function controlIngresos(){
-    if(ingresoFecha.value =="" || tituloGasto.value == "" ||  montoGastado.value =="" || detalleGasto.value == "" ){
+    if(ingresoFecha.value =="" || tituloGasto.value == "" ||  montoGastado.value =="" || detalleGasto.value == "" || tipoGasto.value == ""){
         alert("Debe ingresar informacion pedida en todos los campos")
     }else if(tituloGasto.value.length > 30){
         alert("El titulo del gasto no puede tener mas de 30 caracteres")
@@ -167,9 +172,12 @@ function renderizadoGastos(baseDatos){
         let contenedorEvento = document.createElement("article");
         contenedorEvento.innerHTML = `
                 <p>id:${el.id} ${el.titulo} </p>
-                <p>${dayjs(el.fecha).format('DD-MMMM-YYYY')} detalle: ${el.detalle} </p>
+                <p>${dayjs(el.fecha).format('DD-MMMM-YYYY')}  </p>
+                <p>tipo de gasto: ${el.tipo}</p>
+                <p>detalle: ${el.detalle}</p>
                 <p>Gastado: ${el.gasto}$</p>
                 <button id=editar${el.id} class="editar" type=button >editar</button>
+
                 <button id=eliminar${el.id} class="eliminar" type=button >Eliminar</button>
             `
         visualizacionGastos.appendChild(contenedorEvento)
@@ -193,9 +201,15 @@ function extractorId(extraccion){
 async function eventoEditar(e){
     let idExtraido = extractorId(e.target.id)
     let eventoAEditar = gastos.indexOf(gastos.find((el)=>(el.id == idExtraido)))
+    function optionSelected(){
+        if ( gastos[eventoAEditar].tipo != document.getElementById("edicion_tipo_gasto").value){
+            return "selected"
+        }
+    }
     console.log(eventoAEditar)
 
     const { value: formValues } = await Swal.fire({
+        
         title: 'Editar gasto',
         html:   `
             <div>
@@ -205,8 +219,21 @@ async function eventoEditar(e){
                 <input id="titulo_edicion" type="text" name=""placeholder = ${gastos[eventoAEditar].titulo} >
             </div>
             <div>
-            <input id="gasto_edicion" type="text" name=""placeholder = ${gastos[eventoAEditar].gasto} >
+            <input id="gasto_edicion" type="text" name=""placeholder = ${gastos[eventoAEditar].gasto}>
             </div>
+            <select id="edicion_tipo_gasto">
+                <option  value=""  ${optionSelected()} >Tipo de gasto</option>
+                <option value="fijos" ${optionSelected()}>Gastos fijos</option>
+                <option value="extras" ${optionSelected()}>Extras</option>
+                <option value="Vestimenta" ${optionSelected()}>Vestimenta</option>
+                <option value="cuidado_personal" ${optionSelected()}> Cuidado personal</option>
+                <option value="hogar" ${optionSelected()}>Hogar</option>
+                <option value="salud" ${optionSelected()}>Salud</option>
+                <option value="alimentacion" ${optionSelected()}>Alimentacion</option>
+                <option value="transporte"${optionSelected()}>Transporte</option>
+                <option value="impuestos" ${optionSelected()}>Impuestos</option>
+                <option value="educacion" ${optionSelected()}>Educacion</option>
+            </select>
             <div>
                 <input id="detalle_edicion" name="detalle" type="text"  placeholder=${gastos[eventoAEditar].detalle}>
             </div>
@@ -221,16 +248,19 @@ async function eventoEditar(e){
 
     if (formValues) {
         if(document.getElementById("fecha_edicion").value != ""){
-            gastos[eventoAEditar].fecha = document.getElementById("fecha_edicion").value
+            gastos[eventoAEditar].fecha = document.getElementById("fecha_edicion").value;
         }
         if(document.getElementById("titulo_edicion").value !=""){
-            gastos[eventoAEditar].titulo = document.getElementById("titulo_edicion").value
+            gastos[eventoAEditar].titulo = document.getElementById("titulo_edicion").value;
         }
         if(document.getElementById("gasto_edicion").value !=""){
-            gastos[eventoAEditar].gasto = document.getElementById("gasto_edicion").value
+            gastos[eventoAEditar].gasto = document.getElementById("gasto_edicion").value;
+        }
+        if( document.getElementById("edicion_tipo_gasto").value != ""){
+            gastos[eventoAEditar].tipoGasto = document.getElementById("edicion_tipo_gasto").value;
         }
         if(document.getElementById("detalle_edicion").value !=""){
-            gastos[eventoAEditar].detalle = document.getElementById("detalle_edicion").value
+            gastos[eventoAEditar].detalle = document.getElementById("detalle_edicion").value;
         }
         localStorage.setItem("gastosUsuario",JSON.stringify(gastos));
         renderizadoGastos(gastos)
@@ -258,7 +288,8 @@ function crearEveto(){
         titulo: tituloGasto.value, 
         gasto: montoGastado.value,
         fecha: ingresoFecha.value,
-        detalle: detalleGasto.value
+        tipo: tipoGasto.value,
+        detalle: detalleGasto.value,
     });
     //console.log(gastos);
     localStorage.setItem("gastosUsuario",JSON.stringify(gastos));
@@ -267,6 +298,7 @@ function crearEveto(){
     tituloGasto.value = "";
     montoGastado.value = "";
     ingresoFecha.value = "";
+    tipoGasto.value = "";
     detalleGasto.value = "";
 }
 
