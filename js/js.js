@@ -201,38 +201,43 @@ function extractorId(extraccion){
 async function eventoEditar(e){
     let idExtraido = extractorId(e.target.id)
     let eventoAEditar = gastos.indexOf(gastos.find((el)=>(el.id == idExtraido)))
-    function optionSelected(){
+    let editarClases = document.querySelectorAll(`.option`)
+   
+/*     function optionSelected(){
         if ( gastos[eventoAEditar].tipo != document.getElementById("edicion_tipo_gasto").value){
             return "selected"
         }
-    }
-    console.log(eventoAEditar)
+    } */
+    function crearSelectEdicion(){
+        function bb(ddd){
+            if(ddd.value == gastos[eventoAEditar].tipo){
+                return "selected"
+            }
+        }
 
-    const { value: formValues } = await Swal.fire({
-        
+        let contenedorEvento = document.createElement("div");
+        contenedorEvento.innerHTML = editarClases.forEach((el)=>`
+                <option value=${el.value} ${bb(el)}>${el.innerHTML} </option>
+             `
+            )
+          contenedorEvento.innerHTML 
+   
+    }
+
+    const { value: formValues } = await Swal.fire({        
         title: 'Editar gasto',
         html:   `
             <div>
                 <input id="fecha_edicion" type="date"  value= ${gastos[eventoAEditar].fecha}>
             </div>
             <div>
-                <input id="titulo_edicion" type="text" name=""placeholder = ${gastos[eventoAEditar].titulo} >
+                <input id="titulo_edicion" type="text" name=""placeholder = ${gastos[eventoAEditar].titulo}>
             </div>
             <div>
             <input id="gasto_edicion" type="text" name=""placeholder = ${gastos[eventoAEditar].gasto}>
             </div>
             <select id="edicion_tipo_gasto">
-                <option  value=""  ${optionSelected()} >Tipo de gasto</option>
-                <option value="fijos" ${optionSelected()}>Gastos fijos</option>
-                <option value="extras" ${optionSelected()}>Extras</option>
-                <option value="Vestimenta" ${optionSelected()}>Vestimenta</option>
-                <option value="cuidado_personal" ${optionSelected()}> Cuidado personal</option>
-                <option value="hogar" ${optionSelected()}>Hogar</option>
-                <option value="salud" ${optionSelected()}>Salud</option>
-                <option value="alimentacion" ${optionSelected()}>Alimentacion</option>
-                <option value="transporte"${optionSelected()}>Transporte</option>
-                <option value="impuestos" ${optionSelected()}>Impuestos</option>
-                <option value="educacion" ${optionSelected()}>Educacion</option>
+                ${crearSelectEdicion()}
             </select>
             <div>
                 <input id="detalle_edicion" name="detalle" type="text"  placeholder=${gastos[eventoAEditar].detalle}>
