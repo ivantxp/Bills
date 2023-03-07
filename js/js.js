@@ -202,28 +202,16 @@ async function eventoEditar(e){
     let idExtraido = extractorId(e.target.id)
     let eventoAEditar = gastos.indexOf(gastos.find((el)=>(el.id == idExtraido)))
     let editarClases = document.querySelectorAll(`.option`)
-   
-/*     function optionSelected(){
-        if ( gastos[eventoAEditar].tipo != document.getElementById("edicion_tipo_gasto").value){
-            return "selected"
-        }
-    } */
-    function crearSelectEdicion(){
-        function bb(ddd){
-            if(ddd.value == gastos[eventoAEditar].tipo){
+    let optionSelected  =""
+    function aplicarSelected(aplicar){
+            if(aplicar.value == gastos[eventoAEditar].tipo){
                 return "selected"
+            }else{
+                return ""
             }
         }
 
-        let contenedorEvento = document.createElement("div");
-        contenedorEvento.innerHTML = editarClases.forEach((el)=>`
-                <option value=${el.value} ${bb(el)}>${el.innerHTML} </option>
-             `
-            )
-          contenedorEvento.innerHTML 
-   
-    }
-
+    editarClases.forEach((el)=>optionSelected +=`<option value=${el.value} ${aplicarSelected(el)}>${el.innerHTML} </option>`)
     const { value: formValues } = await Swal.fire({        
         title: 'Editar gasto',
         html:   `
@@ -237,7 +225,7 @@ async function eventoEditar(e){
             <input id="gasto_edicion" type="text" name=""placeholder = ${gastos[eventoAEditar].gasto}>
             </div>
             <select id="edicion_tipo_gasto">
-                ${crearSelectEdicion()}
+                ${optionSelected}
             </select>
             <div>
                 <input id="detalle_edicion" name="detalle" type="text"  placeholder=${gastos[eventoAEditar].detalle}>
@@ -262,16 +250,16 @@ async function eventoEditar(e){
             gastos[eventoAEditar].gasto = document.getElementById("gasto_edicion").value;
         }
         if( document.getElementById("edicion_tipo_gasto").value != ""){
-            gastos[eventoAEditar].tipoGasto = document.getElementById("edicion_tipo_gasto").value;
+            gastos[eventoAEditar].tipo = document.getElementById("edicion_tipo_gasto").value;
         }
         if(document.getElementById("detalle_edicion").value !=""){
             gastos[eventoAEditar].detalle = document.getElementById("detalle_edicion").value;
         }
         localStorage.setItem("gastosUsuario",JSON.stringify(gastos));
         renderizadoGastos(gastos)
-    }else{
+    }/* else{
         alert("false")
-    }
+    } */
 }
 
 
