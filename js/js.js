@@ -1,4 +1,5 @@
 //librerias https://programacion.net/articulo/9_librerias_de_javascript_para_crear_graficos_interactivos_1365
+//https://www.youtube.com/watch?v=eyTKJmN-I2o
 dayjs.locale("es");
 let gastos = [];
 let visualizacionGastos = document.getElementById("visualizacion_gastos");
