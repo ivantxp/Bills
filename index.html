@@ -1,101 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/estilo.css">
-    <script src="./js/dayjs.min.js"     ></script>
-
-    
-</head>
-<body>
     <head>
-        <h1>
-            Control de Gastos
-        </h1>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Document</title>
+        <link rel="stylesheet" href="./css/estilo.css" />
+        <script src="./js/dayjs.min.js"></script>
     </head>
-    <main>
-        <form action="ingreso_gasto">
-            <div>                
-                <input id="fecha_ingreso" type="date" placeholder="fecha">
-            </div>
-            <div>
-                <input id="titulo_gasto" type="text" name=""placeholder = "Titulo del gasto" >
-            </div>
-            <div>
-                <input id="monto_gastado" type="text" placeholder="monto gastado">
-            </div>
-            <select id="tipo_gasto"  >
-                <option class="option" value="" selected disabled >Tipo de gasto</option>
-                <option class="option" value="fijos">Gastos fijos</option>
-                <option class="option" value="extras">Extras</option>
-                <option class="option" value="Vestimenta">Vestimenta</option>
-                <option class="option" value="cuidado personal"> Cuidado personal</option>
-                <option class="option" value="hogar">Hogar</option>
-                <option class="option" value="salud">Salud</option>
-                <option class="option" value="alimentacion">Alimentacion</option>
-                <option class="option" value="transporte">Transporte</option>
-                <option class="option" value="impuestos">Impuestos</option>
-                <option class="option" value="educacion">Educacion</option>
-            </select>
-            <div>
-                <input id="detalle_gasto" name="detalle" type="text"  placeholder="detalles de gasto" >
-            </div>
-            <div>
-                <button id="boton_crear" type="button" >creardor</button>
-                <button id="limpiar_campos" type="button">limpiar campos</button>
-            </div>
-        </form>
-        <section id="filtros">
-        
-            <div>
-                <label for="fecha_antigua">fecha desde</label>
-                <input  id = "fecha_antigua" type="date" placeholder="fecha antigua">
-                <label for="fecha_reciente">fecha hasta</label>
-                <input type="date" id="fecha_reciente" placeholder="fecha reciente">
-            </div>
-            <div>
-                <input type="checkbox" id="check_bajo_alto">
-                <label for="check_bajo_alto">gasto alto a bajo</label>
-                <input type="checkbox" name="" id="check_alto_bajo">
-                <label for="check_alto_bajo">gasto bajo a alto</label>
-            </div>
-            <div>
-                <input type="checkbox" id="check_reciente_antiguo">
-                <label for="check_reciente_antiguo">fecha reciente/antigua</label>
-                <input type="checkbox" name="" id="check_antiguo_reciente">
-                <label for="check_antiguo_reciente">fecha antigua/receinte</label>
-            </div>
-            <div>
-                <label for="importe_minimo">Importe minimo</label>
-                <input type="number" id="importe_minimo">
-                <label for="importe_maximo">importe maximo</label>
-                <input type="number" id="importe_maximo">
-            </div>
-            <div>
-                <input type="text" id="filtro_busqueda" placeholder="palabra a buscar">
-            </div>
-            <button id="boton_buscar" type="button">buscar</button>
-            <button id="limpiar_campos_busqueda" type="button">limpiar campos</button>
-        </section>
-        <section id="visualizacion_gastos">
+    <body>
+        <head>
+            <h1>Control de Gastos</h1>
+        </head>
+        <main>
+            <form action="ingreso_gasto">
+                <div>
+                    <input id="fecha_ingreso" type="date" placeholder="fecha" />
+                </div>
+                <div>
+                    <input
+                        id="titulo_gasto"
+                        type="text"
+                        name=""
+                        placeholder="Titulo del gasto" />
+                </div>
+                <div>
+                    <input
+                        id="monto_gastado"
+                        type="text"
+                        placeholder="monto gastado" />
+                </div>
+                <select id="tipo_gasto">
+                    <option class="option" value="" selected disabled>
+                        Tipo de gasto
+                    </option>
+                    <option class="option" value="fijos">Gastos fijos</option>
+                    <option class="option" value="extras">Extras</option>
+                    <option class="option" value="Vestimenta">
+                        Vestimenta
+                    </option>
+                    <option class="option" value="cuidado personal">
+                        Cuidado personal
+                    </option>
+                    <option class="option" value="hogar">Hogar</option>
+                    <option class="option" value="salud">Salud</option>
+                    <option class="option" value="alimentacion">
+                        Alimentacion
+                    </option>
+                    <option class="option" value="transporte">
+                        Transporte
+                    </option>
+                    <option class="option" value="impuestos">Impuestos</option>
+                    <option class="option" value="educacion">Educacion</option>
+                </select>
+                <div>
+                    <input
+                        id="detalle_gasto"
+                        name="detalle"
+                        type="text"
+                        placeholder="detalles de gasto" />
+                </div>
+                <div>
+                    <button id="boton_crear" type="button">creardor</button>
+                    <button id="limpiar_campos" type="button">
+                        limpiar campos
+                    </button>
+                </div>
+            </form>
+            <section id="filtros">
+                <div>
+                    <label for="fecha_antigua">fecha desde</label>
+                    <input
+                        id="fecha_antigua"
+                        type="date"
+                        placeholder="fecha antigua" />
+                    <label for="fecha_reciente">fecha hasta</label>
+                    <input
+                        type="date"
+                        id="fecha_reciente"
+                        placeholder="fecha reciente" />
+                </div>
+                <div>
+                    <input type="checkbox" id="check_bajo_alto" />
+                    <label for="check_bajo_alto">gasto alto a bajo</label>
+                    <input type="checkbox" name="" id="check_alto_bajo" />
+                    <label for="check_alto_bajo">gasto bajo a alto</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="check_reciente_antiguo" />
+                    <label for="check_reciente_antiguo"
+                        >fecha reciente/antigua</label
+                    >
+                    <input
+                        type="checkbox"
+                        name=""
+                        id="check_antiguo_reciente" />
+                    <label for="check_antiguo_reciente"
+                        >fecha antigua/receinte</label
+                    >
+                </div>
+                <div>
+                    <label for="importe_minimo">Importe minimo</label>
+                    <input type="number" id="importe_minimo" />
+                    <label for="importe_maximo">importe maximo</label>
+                    <input type="number" id="importe_maximo" />
+                </div>
+                <div>
+                    <label for="filtro_tipo_gasto">Buscar por</label>
+                    <select id="filtro_tipo_gasto">
+                        <option class="option" value="" selected disabled>
+                            Tipo de gasto
+                        </option>
+                        <option class="option" value="fijos">
+                            Gastos fijos
+                        </option>
+                        <option class="option" value="extras">Extras</option>
+                        <option class="option" value="Vestimenta">
+                            Vestimenta
+                        </option>
+                        <option class="option" value="cuidado personal">
+                            Cuidado personal
+                        </option>
+                        <option class="option" value="hogar">Hogar</option>
+                        <option class="option" value="salud">Salud</option>
+                        <option class="option" value="alimentacion">
+                            Alimentacion
+                        </option>
+                        <option class="option" value="transporte">
+                            Transporte
+                        </option>
+                        <option class="option" value="impuestos">
+                            Impuestos
+                        </option>
+                        <option class="option" value="educacion">
+                            Educacion
+                        </option>
+                    </select>
+                </div>
+                <div>
+                    <input
+                        type="text"
+                        id="filtro_busqueda"
+                        placeholder="palabra a buscar" />
+                </div>
+                <button id="boton_buscar" type="button">buscar</button>
+                <button id="limpiar_campos_busqueda" type="button">
+                    limpiar campos
+                </button>
+            </section>
+            <section id="visualizacion_gastos"></section>
+        </main>
 
-        </section>
-    </main>
+        <footer>
+            <h3></h3>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    
-    <footer>
-        <h3></h3>
-    </footer>    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="./js/js.js"></script>
 
-    <script src="./js/js.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-    <script>dayjs().format()</script>
-</body>
-
+        <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+        <script>
+            dayjs().format();
+        </script>
+    </body>
 </html>
