@@ -18,14 +18,6 @@ limpiarCampo.onclick = limpiarCreador;
 let LimpiarCampoBusqueda = document.getElementById("limpiar_campos_busqueda");
 LimpiarCampoBusqueda.onclick = limpiarBusqueda;
 
-function limpiarCreador() {
-    tituloGasto.value = "";
-    montoGastado.value = "";
-    ingresoFecha.value = "";
-    tipoGasto.value = "";
-    detalleGasto.value = "";
-}
-
 //captura de
 //captura de nodos de busqueda
 
@@ -45,6 +37,8 @@ checkAltoBajo.onclick = OrdenarAltoBajo;
 CheckRecienteAntiguo.onclick = OrdenarRecienteAntiguo;
 CheckAntguoReciente.onclick = OrdenarAntguoReciente;
 
+let Mychart = document.getElementById("myChart");
+
 function limpiarBusqueda() {
     checkBajoAlto.checked = false;
     checkAltoBajo.checked = false;
@@ -55,6 +49,14 @@ function limpiarBusqueda() {
     importeMinimo.value = "";
     buscarTipoGasto.value = "";
     buscarorPalabras.value = "";
+}
+
+function limpiarCreador() {
+    tituloGasto.value = "";
+    montoGastado.value = "";
+    ingresoFecha.value = "";
+    tipoGasto.value = "";
+    detalleGasto.value = "";
 }
 
 if (localStorage.getItem("gastosUsuario") != null) {
